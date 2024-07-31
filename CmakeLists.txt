@@ -9,11 +9,6 @@ set(CMAKE_CXX_STANDARD              17)
 set(CMAKE_CXX_STANDARD_REQUIRED     ON)
 set(CMAKE_CXX_EXTENSIONS            OFF)
 
-#creates a variable
-set(LIGHT_YEARS_GAME_TARGET_NAME LightYearsGame)
-
-add_subdirectory(LightYears)
-
 include(FetchContent)
 set(SFML_LIB_NAME SFML)
 
@@ -27,3 +22,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(
     ${SFML_LIB_NAME}
 )
+
+#creates a variable
+set(LIGHT_YEARS_GAME_TARGET_NAME LightYearsGame)
+
+add_subdirectory(LightYears)
