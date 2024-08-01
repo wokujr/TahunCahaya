@@ -35,30 +35,50 @@ namespace ly
 			}
 
 			// This will calculate the current frame rate based on machine,  so basically it if accumulated time is bigger than targetDeltaTime it will subtract until it less than accumulatedTime so that's why it can be double the time depend on the actual machine... i guess?
-			/*accumulatedTime += m_TickClock.restart().asSeconds();
+			accumulatedTime += m_TickClock.restart().asSeconds();
 			while (accumulatedTime > targetDeltaTime)
 			{
 				accumulatedTime -= targetDeltaTime;
-				Tick(targetDeltaTime);
-			}*/
+				TickInternal(targetDeltaTime);
+				RenderInternal();
+			}
 
 			// to know the actual frame rate of our machine?
-			float frameDeltaTime = m_TickClock.restart().asSeconds();
+			/*float frameDeltaTime = m_TickClock.restart().asSeconds();
 			accumulatedTime += frameDeltaTime;
-			std::cout << "Frame rate: " << 1.f / frameDeltaTime <<std::endl;
+			std::cout << "Frame rate: " << 1.f / frameDeltaTime <<std::endl;*/
 
 		}
 	}
 
-	void Application::Tick(float DeltaTime)
+	void Application::TickInternal(float DeltaTime)
 	{
-		std::cout << "Ticking at frame rate: " << 1.f / DeltaTime << std::endl;
+		Tick(DeltaTime);
+	}
+
+	void Application::RenderInternal()
+	{
+		m_Window.clear();
+
+		Render();
+
+		m_Window.display();
+
 	}
 
 	void Application::Render()
 	{
-		
+		sf::RectangleShape rectangle(sf::Vector2f(100, 100));
+		rectangle.setFillColor(sf::Color::Cyan);
+		rectangle.setOrigin(50.f, 50.f);
+		rectangle.setPosition(m_Window.getSize().x / 2.f, m_Window.getSize().y / 2.f);
+
+		m_Window.draw(rectangle);
 	}
 
+	void Application::Tick(float DeltaTime)
+	{
+
+	}
 }
 

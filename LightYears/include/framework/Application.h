@@ -14,8 +14,11 @@ namespace ly
 		Application();
 		void Run();
 
-		void Tick(float DeltaTime);
-		void Render();
+		void TickInternal(float DeltaTime);
+		void RenderInternal();
+
+		virtual void Render();
+		virtual void Tick(float DeltaTime);
 
 	private:
 		sf::RenderWindow m_Window;
