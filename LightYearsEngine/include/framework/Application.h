@@ -7,7 +7,7 @@
 
 namespace ly
 {
-	class World;
+	class World;		//forward declaration
 	class Application
 	{
 
@@ -39,7 +39,7 @@ namespace ly
 	{
 		sharedPtr<WorldType> newWorld{ new WorldType{this} };
 		currentWorld = newWorld;
-
+		currentWorld->BeginPlayInternal();
 		return newWorld;
 	}
 }
