@@ -16,7 +16,7 @@ namespace ly
 		
 	}
 
-	World::~World() {}
+	World::~World() = default;
 
 	void World::TickInternal(float DeltaTime)
 	{
@@ -27,11 +27,18 @@ namespace ly
 		}
 		m_PendingActors.clear();
 
-		for (sharedPtr<Actor> actor : m_Actors)
+		for (auto iteration = m_Actors.begin(); iteration != m_Actors.end(); )
 		{
-			actor->Tick(DeltaTime);
+			if (iteration->get()->IsPendingDestroy())
+			{
+				iteration = m_Actors.erase(iteration);
+			}
+			else
+			{
+				iteration->get()->TickInternal(DeltaTime);
+				++iteration;
+			}
 		}
-		
 
 		Tick(DeltaTime);
 	}
@@ -45,8 +52,6 @@ namespace ly
 		}
 	}
 
-	
-
 	void World::BeginPlay()
 	{
 		LOG("Begin Play happening");
@@ -54,6 +59,16 @@ namespace ly
 
 	void World::Tick(float DeltaTime)
 	{
-		LOG("Tick at frame: %f", 1.f / DeltaTime);
+		LOG("World Cpp is Tick at frame: %f", 1.f / DeltaTime);
 	}
+
+	void World::Render(sf::RenderWindow& window) const
+	{
+		for (auto& actors : m_Actors)
+		{
+			actors->Render(window);
+		}
+	}
+
+
 }

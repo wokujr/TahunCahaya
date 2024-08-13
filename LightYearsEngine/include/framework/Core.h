@@ -18,7 +18,7 @@ namespace ly
 	using weakPtr = std::weak_ptr<T>;
 
 	template<typename T>
-	using List = std::vector<T>;
+	using ListArray = std::vector<T>;
 
 	template<typename keyType, typename valType, typename Pr = std::less<keyType>>
 	using Map = std::map<keyType, valType, Pr>;

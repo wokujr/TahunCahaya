@@ -8,9 +8,9 @@ namespace ly
 {
 	Application::~Application() = default;
 
-	Application::Application()
+	Application::Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, sf::Uint32 windowStyle)
 		:
-		m_Window{ sf::VideoMode(1024, 1440), "Tahun Chaya" },
+		m_Window{ sf::VideoMode(windowWidth, windowHeight), title, windowStyle},
 		m_TargetFrameWork(60.f),
 	currentWorld(nullptr)
 	{
@@ -76,12 +76,10 @@ namespace ly
 
 	void Application::Render()
 	{
-		sf::RectangleShape rectangle(sf::Vector2f(100, 100));
-		rectangle.setFillColor(sf::Color::Cyan);
-		rectangle.setOrigin(50.f, 50.f);
-		rectangle.setPosition(m_Window.getSize().x / 2.f, m_Window.getSize().y / 2.f);
-
-		m_Window.draw(rectangle);
+		if (currentWorld)
+		{
+			currentWorld->Render(m_Window);
+		}
 	}
 
 	void Application::Tick(float DeltaTime)

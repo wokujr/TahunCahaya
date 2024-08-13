@@ -1,5 +1,6 @@
 #pragma once
 #include "Core.h"
+#include "SFML/Graphics/RenderWindow.hpp"
 
 namespace ly
 {
@@ -9,10 +10,11 @@ namespace ly
 	{
 	public:
 		World( Application* owner);
+		virtual ~World();
+
 		void TickInternal(float DeltaTime);
 		void BeginPlayInternal();
-
-		virtual ~World();
+		void Render(sf::RenderWindow& window) const;
 
 		template <typename ActorType>
 		weakPtr<ActorType> SpawnActor();
@@ -24,8 +26,8 @@ namespace ly
 		void BeginPlay();
 		void Tick(float DeltaTime);
 
-		List<sharedPtr<Actor>> m_Actors;
-		List<sharedPtr<Actor>> m_PendingActors;
+		ListArray<sharedPtr<Actor>> m_Actors;
+		ListArray<sharedPtr<Actor>> m_PendingActors;
 
 	};
 

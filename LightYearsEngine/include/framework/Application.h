@@ -12,10 +12,10 @@ namespace ly
 	{
 
 	public:
+		Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, sf::Uint32 windowStyle);
 		virtual ~Application();
-		Application();
-		void Run();
 
+		void Run();
 		template <typename WorldType>
 		weakPtr<World> LoadWorld();
 
